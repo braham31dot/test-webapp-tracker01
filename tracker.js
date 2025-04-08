@@ -1,5 +1,6 @@
 // tracker.js - 7-day tracker logic with local storage and error handling
 const trackerDiv = document.getElementById("tracker");
+const saveButton = document.getElementById("saveButton");
 const days = ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"];
 const petDataKey = "petTrackerData";
 
@@ -55,5 +56,16 @@ function updateTrackerData(day, field, value) {
     trackerData[day][field] = value;
     saveTrackerData(trackerData);
 }
+
+saveButton.addEventListener("click", () => {
+    const trackerData = {};
+    days.forEach(day => {
+        const temp = document.getElementById(`temp-${day}`).value;
+        const food = document.getElementById(`food-${day}`).value;
+        const notes = document.getElementById(`notes-${day}`).value;
+        trackerData[day] = { temp, food, notes };
+    });
+    saveTrackerData(trackerData);
+});
 
 renderTracker();
